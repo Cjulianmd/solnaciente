@@ -13,33 +13,38 @@ import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 
 function Formik1() {
-  function validateName(value) {
-    let error;
-    if (!value) {
-      error = 'Name is required';
-    } else if (value.toLowerCase() !== '') {
-      error = 'Name is required 😱';
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+
+  const handleNameChange = (e) => setName(e.target.value);
+  const handlePhoneChange = (e) => setPhone(e.target.value);
+
+  const handleSubmit = (values, actions) => {
+    setTimeout(() => {
+      alert(JSON.stringify(values, null, 2));
+      actions.setSubmitting(false);
+    }, 1000);
+  };
+
+  const validateForm = (values) => {
+    const errors = {};
+
+    if (!values.name) {
+      errors.name = 'Name is required';
     }
-    return error;
-  }
 
-  const [input, setInput] = useState('');
+    if (!values.phone) {
+      errors.phone = 'Phone is required';
+    }
 
-  const handleInputChange = (e) => setInput(e.target.value);
-
-  const isError = input === '';
+    return errors;
+  };
 
   return (
     <>
-      <Formik
-        initialValues={{ name: '' }}
-        onSubmit={(values, actions) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }, 1000);
-        }}
-      >
+      <Formik initialValues={{ name: '', phone: '', country: '', email: '', city: '', message: '' }}
+        onSubmit={handleSubmit}
+        validate={validateForm}>
         {(props) => (
           <Form>
             <Heading as="h4" size="sm" mb={1} color="black">
@@ -48,32 +53,41 @@ function Formik1() {
 
             <FormControl>
               <FormLabel>Nombre</FormLabel>
-              <Input type="text" value={input} onChange={handleInputChange} />
+              <Input
+                type="text"
+                name="name"
+                value={props.values.name}
+                onChange={handleNameChange}
+              />
+              <FormErrorMessage>{props.errors.name}</FormErrorMessage>
 
               <FormLabel>País</FormLabel>
-              <Select placeholder="Selecciona un país">
-                <option>Colombia</option>
-                <option>Otro</option>
+              <Select name="country" placeholder="Selecciona un país" value={props.values.country} onChange={props.handleChange}>
+                <option value="colombia">Colombia</option>
+                <option value="other">Otro</option>
               </Select>
-
+              <FormHelperText>
+                Ingresa tu pais de origen.
+              </FormHelperText>
+              
               <FormLabel>Email</FormLabel>
-              <Input type="email" value={input} onChange={handleInputChange} />
-              {!isError ? (
-                <FormHelperText>
-                  Ingresa el correo electrónico donde deseas recibir el boletín.
-                </FormHelperText>
-              ) : (
-                <FormErrorMessage>Email is required.</FormErrorMessage>
-              )}
+              <Input type="email" name="email" value={props.values.email} onChange={props.handleChange} />
+
 
               <FormLabel>Teléfono</FormLabel>
-              <Input type="number" value={input} onChange={handleInputChange} />
+              <Input
+                type="tel"
+                name="phone"
+                value={props.values.phone}
+                onChange={handlePhoneChange}
+              />
+              <FormErrorMessage>{props.errors.phone}</FormErrorMessage>
 
               <FormLabel>Ciudad</FormLabel>
-              <Input type="text" value={input} onChange={handleInputChange} />
+              <Input type="text" name="city" value={props.values.city} onChange={props.handleChange} />
 
               <FormLabel>Mensaje</FormLabel>
-              <Textarea name="message" />
+              <Textarea name="message" value={props.values.message} onChange={props.handleChange} />
 
               <Button mt={4} colorScheme="teal" isLoading={props.isSubmitting} type="submit">
                 Enviar

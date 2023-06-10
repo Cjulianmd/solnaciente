@@ -13,8 +13,7 @@ import {
     Heading,
     Box
   } from '@chakra-ui/react'
- 
-  
+  import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
 const Bar = () => (
     <Box as="footer" role="contentinfo" boxShadow="0px 2px 4px rgba(0, 0, 0, .2)" >
  <Stack
@@ -34,13 +33,13 @@ const Bar = () => (
             </Text>
             <Stack spacing="3" shouldWrapChildren>
               <Button variant="text" colorScheme="gray">
-                telefono
+                3136426338
               </Button>
               <Button variant="text" colorScheme="gray">
-                telefono 2
+                3147171818
               </Button>
               <Button variant="text" colorScheme="gray">
-                correo electronico
+                fincaraizsolnaaciente@gmail.com
               </Button>
             </Stack>
           </Stack>
@@ -96,12 +95,11 @@ const Bar = () => (
       <ButtonGroup variant="tertiary">
         <IconButton
           as="a"
-          href="#"
-          aria-label="LinkedIn"
-        //  icon={<FaLinkedin fontSize="1.25rem" />}
+          href="https://www.instagram.com/fincaraizsolnaciente/"
+          aria-label="Instagram"
+         icon={<FaInstagram fontSize="1.25rem" />}
         />
-        <IconButton as="a" href="#" aria-label="GitHub"  />
-        <IconButton as="a" href="#" aria-label="Twitter"  />
+        <IconButton as="a" href="https://www.facebook.com/solnaciente.fincaraiz.94" aria-label="Facebook"  icon={<FaFacebook fontSize="1.25rem" />} />
       </ButtonGroup>
     </Stack>
     </Box>
