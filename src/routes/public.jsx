@@ -19,7 +19,7 @@ const AppRouter = () => {
                 <Route path='/Ventas' element={<Ventas/>}/>
                 <Route path='/arrendamientos' element={<Riendos/>}/>
                 <Route path='/contacto' element={<Riendos/>}/>
-                <Route path="/:id" Component={PropertyDetailsPage} />
+                <Route path="/:id" element={<PropertyDetailsPage />} />
 
             </Routes>
         </BrowserRouter>
