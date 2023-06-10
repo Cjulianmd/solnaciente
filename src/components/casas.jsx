@@ -1,48 +1,81 @@
-import React from 'react';
-import {
-  Box,
-  Heading,
-  Text,
-  Flex,
-  Image,
-  SimpleGrid,
-  Badge,
-} from '@chakra-ui/react';
+import React, { useEffect, useState, useRef } from 'react';
+import { Box, Heading, Text, Flex, Image, Badge, Button } from '@chakra-ui/react';
+import { db } from "../firebase/firebase";
+import { collection, getDocs } from 'firebase/firestore';
 
 const Casas = () => {
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const scrollRef = useRef(null);
+  const [showMore, setShowMore] = useState(false);
+
+  useEffect(() => {
+    const fetchProperties = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'venta'));
+        const fetchedProperties = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProperties(fetchedProperties);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchProperties();
+  }, []);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = 0;
+    }
+  }, [properties]);
+
+  if (loading) {
+    return <p>Cargando propiedades...</p>;
+  }
+
+  if (error) {
+    return <p>Error al cargar las propiedades: {error}</p>;
+  }
+
+  const visibleProperties = showMore ? properties : properties.slice(0, 3);
+
   return (
     <Box p={4}>
-      <Flex alignItems="center" mb={4}>
+      <Flex overflowX="auto" ref={scrollRef}>
+        {visibleProperties.map((property, index) => (
+          <PropertyCard
+            key={property.id}
+            imageUrl={property.images[0]}
+            title={property.title}
+            location={property.location}
+            price={property.price}
+            isFirstCard={index === 0}
+          />
+        ))}
       </Flex>
-
-      <SimpleGrid columns={[1, 2, 3]} spacing={4}>
-        <PropertyCard
-          imageUrl="https://scontent.feoh3-1.fna.fbcdn.net/v/t39.30808-6/336039742_3544539622532810_738943150359978152_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=onVKpYpc6b4AX9cIqhj&_nc_ht=scontent.feoh3-1.fna&oh=00_AfCiIilhkVW2IB_x0P5Z5V48DXeE_Eq0g1O7xrdh-8pKuw&oe=6488E00E"
-          title="Casa en venta"
-          location="Calle Principal, Ciudad"
-          price="$250,000"
-        />
-        <PropertyCard
-          imageUrl="https://scontent.feoh3-1.fna.fbcdn.net/v/t39.30808-6/336039742_3544539622532810_738943150359978152_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=onVKpYpc6b4AX9cIqhj&_nc_ht=scontent.feoh3-1.fna&oh=00_AfCiIilhkVW2IB_x0P5Z5V48DXeE_Eq0g1O7xrdh-8pKuw&oe=6488E00E"
-          title="Departamento en alquiler"
-          location="Avenida Central, Ciudad"
-          price="$1,200/mes"
-        />
-        <PropertyCard
-          imageUrl="https://scontent.feoh3-1.fna.fbcdn.net/v/t39.30808-6/336039742_3544539622532810_738943150359978152_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=onVKpYpc6b4AX9cIqhj&_nc_ht=scontent.feoh3-1.fna&oh=00_AfCiIilhkVW2IB_x0P5Z5V48DXeE_Eq0g1O7xrdh-8pKuw&oe=6488E00E"
-          title="Terreno en venta"
-          location="Barrio Residencial, Ciudad"
-          price="$150,000"
-        />
-        
-      </SimpleGrid>
+      {!showMore && properties.length > 3 && (
+        <Button mt={4} onClick={() => setShowMore(true)}>
+          Ver más propiedades
+        </Button>
+      )}
     </Box>
   );
 };
 
-const PropertyCard = ({ imageUrl, title, location, price }) => {
+const PropertyCard = ({ imageUrl, title, location, price, isFirstCard }) => {
   return (
-    <Box borderWidth="1px" borderRadius="md" overflow="hidden">
+    <Box
+      borderWidth="1px"
+      borderRadius="md"
+      overflow="hidden"
+      mr={isFirstCard ? 0 : 4}
+    >
       <Image src={imageUrl} alt="Property" />
       <Box p={4}>
         <Heading as="h3" size="md" mb={2}>

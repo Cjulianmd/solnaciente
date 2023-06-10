@@ -25,6 +25,8 @@ const Casasventa = () => {
     // Ejecutar la función de obtención de datos
     fetchProperties();
   }, []);
+
+  
   return (
     
     <Box p={4}>
