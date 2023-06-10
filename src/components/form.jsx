@@ -11,7 +11,8 @@ import {
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { Link } from 'react-router-dom';
 function Formik1() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -19,12 +20,34 @@ function Formik1() {
   const handleNameChange = (e) => setName(e.target.value);
   const handlePhoneChange = (e) => setPhone(e.target.value);
 
-  const handleSubmit = (values, actions) => {
-    setTimeout(() => {
-      alert(JSON.stringify(values, null, 2));
-      actions.setSubmitting(false);
-    }, 1000);
+  const handleSubmit = async (values, actions) => {
+    try {
+      // Obtener una instancia de Firestore
+      const db = getFirestore();
+  
+      // Crear un nuevo documento en la colección "messages"
+      await addDoc(collection(db, 'messages'), {
+        nombre: values.name,
+        pais: values.country,
+        email: values.email,
+        telefono: values.phone,
+        ciudad: values.city,
+        mensaje: values.message,
+        enlace: window.location.href,
+        timestamp: new Date()
+      });
+  
+      console.log('Mensaje guardado en Firestore');
+      // Lógica adicional después de guardar el mensaje en Firestore
+      actions.resetForm();
+    } catch (error) {
+      console.error('Error al guardar el mensaje en Firestore:', error);
+      // Manejo del error al guardar el mensaje
+    }
+  
+    actions.setSubmitting(false);
   };
+  
 
   const validateForm = (values) => {
     const errors = {};
@@ -57,7 +80,7 @@ function Formik1() {
                 type="text"
                 name="name"
                 value={props.values.name}
-                onChange={handleNameChange}
+                onChange={props.handleChange}
               />
               <FormErrorMessage>{props.errors.name}</FormErrorMessage>
 
@@ -69,7 +92,7 @@ function Formik1() {
               <FormHelperText>
                 Ingresa tu pais de origen.
               </FormHelperText>
-              
+
               <FormLabel>Email</FormLabel>
               <Input type="email" name="email" value={props.values.email} onChange={props.handleChange} />
 
@@ -79,7 +102,7 @@ function Formik1() {
                 type="tel"
                 name="phone"
                 value={props.values.phone}
-                onChange={handlePhoneChange}
+                onChange={props.handleChange}
               />
               <FormErrorMessage>{props.errors.phone}</FormErrorMessage>
 
@@ -88,11 +111,14 @@ function Formik1() {
 
               <FormLabel>Mensaje</FormLabel>
               <Textarea name="message" value={props.values.message} onChange={props.handleChange} />
-
               <Button mt={4} colorScheme="teal" isLoading={props.isSubmitting} type="submit">
                 Enviar
               </Button>
+              <FormHelperText>
+                Al hacer clic en "Enviar", aceptas nuestros <Link to="/term">Términos y Privacidad</Link>.
+              </FormHelperText>
             </FormControl>
+            
           </Form>
         )}
       </Formik>

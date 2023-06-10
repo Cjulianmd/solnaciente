@@ -1,44 +1,55 @@
 import { useEffect, useState } from 'react';
 import { Box, Flex, SimpleGrid, Image, Heading, Text, Badge } from '@chakra-ui/react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from "../firebase/firebase"
+import { Link } from 'react-router-dom';
 
-const Casas = () => {
+const Casasventa = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     // Obtener la referencia a la colección "properties" de Firestore
-    const db = getFirestore();
-    const propertiesCollection = collection(db, 'properties');
+    const propertiesCollection = collection(db, 'venta');
 
     // Obtener los documentos de la colección
     const fetchProperties = async () => {
-      const querySnapshot = await getDocs(propertiesCollection);
-      const propertiesData = querySnapshot.docs.map((doc) => doc.data());
-      setProperties(propertiesData);
-    };
+        const querySnapshot = await getDocs(propertiesCollection);
+        const propertiesData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setProperties(propertiesData);
+      };
+      
 
     // Ejecutar la función de obtención de datos
     fetchProperties();
   }, []);
-
   return (
+    
     <Box p={4}>
-      <SimpleGrid columns={[1, 2, 3]} spacing={4}>
-        {properties.map((property) => (
+      <SimpleGrid columns={[1, 2, 3 , 4 , 5, 6]} spacing={4}>
+      {properties
+      .filter((property) => property.tipo === 'Arriendo' && property.dis === 'Disponible') // Filtrar por tipo de arriendo
+      .map((property) => (
+        <Link to={`/${property.id}`}>
           <PropertyCard
             key={property.id}
-            imageUrl={property.imageUrl}
+            imageUrl={property.images[0]}
             title={property.title}
             location={property.location}
             price={property.price}
+            dis={property.dis}
           />
+          </Link>
         ))}
       </SimpleGrid>
     </Box>
+        
   );
 };
 
-const PropertyCard = ({ imageUrl, title, location, price }) => {
+const PropertyCard = ({ imageUrl, title, location, price,dis }) => {
   return (
     <Box borderWidth="1px" borderRadius="md" overflow="hidden">
       <Image src={imageUrl} alt="Property" />
@@ -53,9 +64,11 @@ const PropertyCard = ({ imageUrl, title, location, price }) => {
           <Text fontWeight="bold" fontSize="lg" mr={2}>
             {price}
           </Text>
-          <Badge colorScheme="green">Disponible</Badge>
+          <Badge colorScheme="green">{dis}</Badge>
         </Flex>
       </Box>
     </Box>
   );
 };
+
+export default Casasventa;

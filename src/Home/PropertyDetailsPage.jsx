@@ -10,7 +10,7 @@ import { FaBath, FaUtensils, FaCar, FaBed, FaCouch, FaTshirt, FaRuler, FaBuildin
 
 
 const PropertyDetailsPage = () => {
-  const { id } = useParams();
+  const { id} = useParams();
   const [property, setProperty] = useState(null);
 
   useEffect(() => {

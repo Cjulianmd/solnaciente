@@ -29,8 +29,10 @@ const Casasventa = () => {
     
     <Box p={4}>
       <SimpleGrid columns={[1, 2, 3 , 4 , 5, 6]} spacing={4}>
-        {properties.map((property) => (
-        <Link to={`/venta/${property.id}`}>
+      {properties
+      .filter((property) => property.tipo === 'venta' && property.dis === 'Disponible') // Filtrar por tipo de venta
+      .map((property) => (
+        <Link to={`/${property.id}`}>
           <PropertyCard
             key={property.id}
             imageUrl={property.images[0]}

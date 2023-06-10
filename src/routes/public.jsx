@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route,} from "react-router-dom";
 
 import Home from "../Home/pagprincipal";
 import Ventas from "../Home/casasventa"
+import Riendos from "../Home/casasarriendo"
 import PropertyDetailsPage from "../Home/PropertyDetailsPage";
-
+import TermsAndPrivacyPage from "../Home/teminosyprivacidad";
 
 const AppRouter = () => {
 
@@ -14,8 +15,12 @@ const AppRouter = () => {
 
                 {/* Rutas privadas */}
                 <Route path='/' element={<Home/>}/>
+                <Route path='/term' element={<TermsAndPrivacyPage/>}/>
                 <Route path='/Ventas' element={<Ventas/>}/>
-                <Route path="/venta/:id" Component={PropertyDetailsPage} />
+                <Route path='/arrendamientos' element={<Riendos/>}/>
+                <Route path='/contacto' element={<Riendos/>}/>
+                <Route path="/:id" Component={PropertyDetailsPage} />
+
             </Routes>
         </BrowserRouter>
     )

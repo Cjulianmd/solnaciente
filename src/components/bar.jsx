@@ -14,6 +14,7 @@ import {
     Box
   } from '@chakra-ui/react'
   import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+  import { Link } from 'react-router-dom';
 const Bar = () => (
     <Box as="footer" role="contentinfo" boxShadow="0px 2px 4px rgba(0, 0, 0, .2)" >
  <Stack
@@ -69,10 +70,12 @@ const Bar = () => (
             <Text fontSize="sm" fontWeight="semibold" color="fg.subtle">
               Legal
             </Text>
-            <Stack spacing="3" shouldWrapChildren>
-              <Button variant="text" colorScheme="gray">
-                Terms and Privacy
-              </Button>
+            <Stack spacing="3" shouldWrapChildren>/term
+            <Link to="/term" style={{ textDecoration: 'none' }}>
+  <Button variant="text" colorScheme="gray">
+    Terms and Privacy
+  </Button>
+</Link>
               <Button variant="text" colorScheme="gray">
                 License
               </Button>
@@ -90,7 +93,7 @@ const Bar = () => (
       align="center"
     >
       <Text fontSize="sm" color="fg.subtle">
-        &copy; {new Date().getFullYear()} Chakra UI Pro, Inc. All rights reserved.
+        &copy; {new Date().getFullYear()} Sol naciente, Inc. All rights reserved.
       </Text>
       <ButtonGroup variant="tertiary">
         <IconButton
