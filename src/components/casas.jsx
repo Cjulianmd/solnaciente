@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Box, Heading, Text, Flex, Image, Badge, Button } from '@chakra-ui/react';
 import { db } from "../firebase/firebase";
 import { collection, getDocs } from 'firebase/firestore';
-
+import { Link } from 'react-router-dom';
 const Casas = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -49,26 +49,23 @@ const Casas = () => {
     <Box p={4}>
       <Flex overflowX="auto" ref={scrollRef}>
         {visibleProperties.map((property, index) => (
+          <Link to={`/${property.id}`}>
           <PropertyCard
             key={property.id}
             imageUrl={property.images[0]}
             title={property.title}
             location={property.location}
             price={property.price}
-            isFirstCard={index === 0}
+            dis={property.dis}
           />
+          </Link>
         ))}
       </Flex>
-      {!showMore && properties.length > 3 && (
-        <Button mt={4} onClick={() => setShowMore(true)}>
-          Ver más propiedades
-        </Button>
-      )}
     </Box>
   );
 };
 
-const PropertyCard = ({ imageUrl, title, location, price, isFirstCard }) => {
+const PropertyCard = ({ imageUrl, title, location, price, isFirstCard,dis }) => {
   return (
     <Box
       borderWidth="1px"
@@ -88,7 +85,7 @@ const PropertyCard = ({ imageUrl, title, location, price, isFirstCard }) => {
           <Text fontWeight="bold" fontSize="lg" mr={2}>
             {price}
           </Text>
-          <Badge colorScheme="green">Disponible</Badge>
+          <Badge colorScheme="green">{dis}</Badge>
         </Flex>
       </Box>
     </Box>

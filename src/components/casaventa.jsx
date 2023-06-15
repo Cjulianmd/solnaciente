@@ -51,7 +51,7 @@ const Casasventa = () => {
   );
 };
 
-const PropertyCard = ({ imageUrl, title, location, price,propertyId }) => {
+const PropertyCard = ({ imageUrl, title, location, price,dis }) => {
   return (
     <Box borderWidth="1px" borderRadius="md" overflow="hidden">
       <Image src={imageUrl} alt="Property" />
@@ -66,7 +66,7 @@ const PropertyCard = ({ imageUrl, title, location, price,propertyId }) => {
           <Text fontWeight="bold" fontSize="lg" mr={2}>
             {price}
           </Text>
-          <Badge colorScheme="green">Disponible</Badge>
+          <Badge colorScheme="green">{dis}</Badge>
         </Flex>
       </Box>
     </Box>

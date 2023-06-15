@@ -7,6 +7,7 @@ import Navbar from '../components/navbar';
 import { Box, Flex, Heading, Text, Image, SimpleGrid, IconButton } from '@chakra-ui/react';
 import Formik1 from '../components/form';
 import { FaBath, FaUtensils, FaCar, FaBed, FaCouch, FaTshirt, FaRuler, FaBuilding, FaCoins, FaInfo, FaLayerGroup,FaMapMarkerAlt,FaHome } from 'react-icons/fa';
+import Casas from '../components/casas';
 
 
 const PropertyDetailsPage = () => {
@@ -229,7 +230,13 @@ const PropertyDetailsPage = () => {
           </Box>
 
           </Flex>
+          
       </Box>
+      <Box height={150} />
+      <Heading as="h2" size="xl" mb={4}>
+      Casas que tambien te pueden interezar
+            </Heading>
+          <Casas />
       <Bar />
     </Box>
   );
