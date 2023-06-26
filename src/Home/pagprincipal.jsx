@@ -18,7 +18,7 @@ const Home = () => {
    <Navbar/>
 
     <Box textAlign="center" position="relative" maxWidth="100%">
-    <Image src="https://arrendamientossantafe.com/static/img/banner_main.png" alt="Descripción de la imagen"  />
+    <Image src="https://firebasestorage.googleapis.com/v0/b/sol-naciente-6024f.appspot.com/o/banner_main.png?alt=media&token=49a9eab3-878c-4dfd-afa1-e3421a340876" alt="Descripción de la imagen"  />
     <Flex
         position="absolute"
         top="50%"
@@ -64,14 +64,14 @@ const Home = () => {
           </Text>
         </li>
       </ul>
-    </Box><Image src="https://scontent.fmzl1-1.fna.fbcdn.net/v/t39.30808-6/279326250_689234775663675_5331470718712610748_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=gs70xHoDh2YAX81TDj8&_nc_ht=scontent.fmzl1-1.fna&oh=00_AfCAI0w-5gEjM9dWPsMowkxJFR6bWE7_TWYownVYAFrvvQ&oe=6489A0D2" alt="Imagen" boxSize="350px" mr={4} />
+    </Box><Image src="https://firebasestorage.googleapis.com/v0/b/sol-naciente-6024f.appspot.com/o/279326250_689234775663675_5331470718712610748_n.jpg?alt=media&token=df430b5d-ab80-4921-84c9-f21d7bb100d7" alt="Imagen" boxSize="350px" mr={4} />
   </Flex>
 </Box>
     <Casas/>
 
     <Box mt={8}>
   <Flex align="center">
-    <Image src="https://scontent.fmzl1-1.fna.fbcdn.net/v/t39.30808-6/279326250_689234775663675_5331470718712610748_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=174925&_nc_ohc=gs70xHoDh2YAX81TDj8&_nc_ht=scontent.fmzl1-1.fna&oh=00_AfCAI0w-5gEjM9dWPsMowkxJFR6bWE7_TWYownVYAFrvvQ&oe=6489A0D2" alt="Imagen" boxSize="350px" mr={4} />
+    <Image src="https://firebasestorage.googleapis.com/v0/b/sol-naciente-6024f.appspot.com/o/279326250_689234775663675_5331470718712610748_n.jpg?alt=media&token=df430b5d-ab80-4921-84c9-f21d7bb100d7" alt="Imagen" boxSize="350px" mr={4} />
     <Box>
       <Heading as="h3" size="lg" mb={4}>
         ¿Quienes somos?

@@ -1,16 +1,11 @@
 import {
     Button,
     ButtonGroup,
-    Container,
     Divider,
     IconButton,
-    Input,
     Stack,
     Text,
-    Flex,
     Image,
-    Spacer,
-    Heading,
     Box
   } from '@chakra-ui/react'
   import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
@@ -24,7 +19,7 @@ const Bar = () => (
       py={{ base: '2', md: '5' }}
     >
       <Stack spacing={{ base: '6', md: '8' }} align="start">
-      <Image src="https://scontent.feoh3-1.fna.fbcdn.net/v/t39.30808-6/336039742_3544539622532810_738943150359978152_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=onVKpYpc6b4AX9cIqhj&_nc_ht=scontent.feoh3-1.fna&oh=00_AfCiIilhkVW2IB_x0P5Z5V48DXeE_Eq0g1O7xrdh-8pKuw&oe=6488E00E" alt="Logo" boxSize="150px" mr={3} />
+      <Image src="https://firebasestorage.googleapis.com/v0/b/sol-naciente-6024f.appspot.com/o/289632153_723889605531525_1739308940766759541_n-removebg-preview.png?alt=media&token=26fc120e-53e3-41e7-8010-186c03e47324" alt="Logo" boxSize="150px" mr={3} />
         
       </Stack>
       
@@ -72,10 +67,10 @@ const Bar = () => (
             </Text>
             <Stack spacing="3" shouldWrapChildren>/term
             <Link to="/term" style={{ textDecoration: 'none' }}>
-  <Button variant="text" colorScheme="gray">
-    Terms and Privacy
-  </Button>
-</Link>
+            <Button variant="text" colorScheme="gray">
+              Terms and Privacy
+            </Button>
+          </Link>
               <Button variant="text" colorScheme="gray">
                 License
               </Button>

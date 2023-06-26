@@ -66,6 +66,7 @@ const Casas = () => {
 };
 
 const PropertyCard = ({ imageUrl, title, location, price, isFirstCard,dis }) => {
+  const badgeColorScheme = dis === 'Disponible' ? 'green' : 'red';
   return (
     <Box
       borderWidth="1px"
@@ -85,7 +86,7 @@ const PropertyCard = ({ imageUrl, title, location, price, isFirstCard,dis }) => 
           <Text fontWeight="bold" fontSize="lg" mr={2}>
             {price}
           </Text>
-          <Badge colorScheme="green">{dis}</Badge>
+          <Badge colorScheme={badgeColorScheme}>{dis}</Badge>
         </Flex>
       </Box>
     </Box>
