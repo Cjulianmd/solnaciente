@@ -5,7 +5,6 @@ import {
   Container,
   Flex,
   HStack,
-  IconButton,
   useBreakpointValue,
   Heading,
   Image,
@@ -27,7 +26,7 @@ const Navbar = () => {
     });
   };
 
-  const isDesktop = useBreakpointValue({ base: false, lg: true });
+ useBreakpointValue({ base: false, lg: true });
 
   return (
     <Box as="section" pb={{ base: '1', md: '30' }}>

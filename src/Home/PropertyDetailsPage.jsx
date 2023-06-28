@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
-import { collection, doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from "../firebase/firebase";
 import { useEffect, useState } from 'react';
 import Bar from '../components/bar';
 import Navbar from '../components/navbar';
-import { Box, Flex, Heading, Text, Image, SimpleGrid, IconButton } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, Image, SimpleGrid,} from '@chakra-ui/react';
 import Formik1 from '../components/form';
 import { FaBath, FaUtensils, FaCar, FaBed, FaCouch, FaTshirt, FaRuler, FaBuilding, FaCoins, FaInfo, FaLayerGroup,FaMapMarkerAlt,FaHome } from 'react-icons/fa';
 import Casas from '../components/casas';

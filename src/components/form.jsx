@@ -9,18 +9,13 @@ import {
   Heading,
   Textarea,
 } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'formik';
-import { useState } from 'react';
+import { Form, Formik } from 'formik';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
 import { logEvent, getAnalytics } from 'firebase/analytics'; // Importar las funciones de Firebase Analytics
 
 function Formik1() {
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
 
-  const handleNameChange = (e) => setName(e.target.value);
-  const handlePhoneChange = (e) => setPhone(e.target.value);
 
   const handleSubmit = async (values, actions) => {
     try {

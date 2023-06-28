@@ -10,7 +10,7 @@ const Casas = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const scrollRef = useRef(null);
-  const [showMore, setShowMore] = useState(false);
+  const [showMore] = useState(false);
 
   useEffect(() => {
     const fetchProperties = async () => {
