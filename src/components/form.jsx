@@ -13,6 +13,8 @@ import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import { logEvent, getAnalytics } from 'firebase/analytics'; // Importar las funciones de Firebase Analytics
+
 function Formik1() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -40,6 +42,12 @@ function Formik1() {
       console.log('Mensaje guardado en Firestore');
       // Lógica adicional después de guardar el mensaje en Firestore
       actions.resetForm();
+
+      // Registrar el evento de formulario enviado en Firebase Analytics
+      const analytics = getAnalytics();
+      logEvent(analytics, 'form_submit', {
+        formName: 'Formik1',
+      });
     } catch (error) {
       console.error('Error al guardar el mensaje en Firestore:', error);
       // Manejo del error al guardar el mensaje

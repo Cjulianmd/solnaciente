@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Box, Heading, Text, Flex, Image, Badge, Button } from '@chakra-ui/react';
+import { Box, Heading, Text, Flex, Image, Badge} from '@chakra-ui/react';
 import { db } from "../firebase/firebase";
 import { collection, getDocs } from 'firebase/firestore';
 import { Link } from 'react-router-dom';
+import { logEvent, getAnalytics } from 'firebase/analytics'; // Importar las funciones de Firebase Analytics
+
 const Casas = () => {
   const [properties, setProperties] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,19 +47,24 @@ const Casas = () => {
 
   const visibleProperties = showMore ? properties : properties.slice(0, 3);
 
+  const handlePropertyClick = (propertyId) => {
+    const analytics = getAnalytics();
+    logEvent(analytics, 'property_view', { propertyId });
+  };
+
   return (
     <Box p={4}>
       <Flex overflowX="auto" ref={scrollRef}>
         {visibleProperties.map((property, index) => (
-          <Link to={`/${property.id}`}>
-          <PropertyCard
-            key={property.id}
-            imageUrl={property.images[0]}
-            title={property.title}
-            location={property.location}
-            price={property.price}
-            dis={property.dis}
-          />
+          <Link to={`/${property.id}`} key={property.id} onClick={() => handlePropertyClick(property.id)}>
+            <PropertyCard
+              imageUrl={property.images[0]}
+              title={property.title}
+              location={property.location}
+              price={property.price}
+              dis={property.dis}
+              isFirstCard={index === 0}
+            />
           </Link>
         ))}
       </Flex>

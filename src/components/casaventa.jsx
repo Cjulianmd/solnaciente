@@ -3,15 +3,14 @@ import { Box, Flex, SimpleGrid, Image, Heading, Text, Badge } from '@chakra-ui/r
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from "../firebase/firebase"
 import { Link } from 'react-router-dom';
+import { logEvent, getAnalytics } from 'firebase/analytics'; // Importar las funciones de Firebase Analytics
 
 const Casasventa = () => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
-    // Obtener la referencia a la colección "properties" de Firestore
     const propertiesCollection = collection(db, 'venta');
 
-    // Obtener los documentos de la colección
     const fetchProperties = async () => {
       const querySnapshot = await getDocs(propertiesCollection);
       const propertiesData = querySnapshot.docs.map((doc) => ({
@@ -21,38 +20,38 @@ const Casasventa = () => {
       setProperties(propertiesData);
     };
 
-    // Ejecutar la función de obtención de datos
     fetchProperties();
   }, []);
 
   const handlePropertyClick = (propertyId) => {
-    console.log('ID de la propiedad:', propertyId);
+    const analytics = getAnalytics();
+    logEvent(analytics, 'property_view', { propertyId });
   };
 
   return (
     <Box p={4}>
       <SimpleGrid columns={[1, 2, 3, 4, 5, 6]} spacing={4}>
-      {properties
-  .filter((property) => property.tipo === 'venta' && property.dis === 'Disponible')
-  .map((property) => (
-    <Link to={`/${property.id}`} key={property.id}>
-      <PropertyCard
-        imageUrl={property.images[0]}
-        title={property.title}
-        location={property.location}
-        price={property.price}
-        dis={property.dis}
-        propertyId={property.id} // Agregar la prop 'propertyId'
-      />
-    </Link>
-  ))
-}
+        {properties
+          .filter((property) => property.tipo === 'venta' && property.dis === 'Disponible')
+          .map((property) => (
+            <Link to={`/${property.id}`} key={property.id} onClick={() => handlePropertyClick(property.id)}>
+              <PropertyCard
+                imageUrl={property.images[0]}
+                title={property.title}
+                location={property.location}
+                price={property.price}
+                dis={property.dis}
+                propertyId={property.id}
+              />
+            </Link>
+          ))
+        }
       </SimpleGrid>
     </Box>
   );
 };
 
-const PropertyCard = ({ imageUrl, title, location, price,dis }) => {
+const PropertyCard = ({ imageUrl, title, location, price, dis }) => {
   const badgeColorScheme = dis === 'Disponible' ? 'green' : 'red';
   return (
     <Box borderWidth="1px" borderRadius="md" overflow="hidden">

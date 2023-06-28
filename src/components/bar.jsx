@@ -1,16 +1,38 @@
 import {
-    Button,
-    ButtonGroup,
-    Divider,
-    IconButton,
-    Stack,
-    Text,
-    Image,
-    Box
-  } from '@chakra-ui/react'
-  import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
-  import { Link } from 'react-router-dom';
-const Bar = () => (
+  Button,
+  ButtonGroup,
+  Divider,
+  IconButton,
+  Stack,
+  Text,
+  Image,
+  Box
+} from '@chakra-ui/react';
+import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { logEvent, getAnalytics } from 'firebase/analytics'; // Importar las funciones de Firebase Analytics
+
+  const Bar = () => {
+  const handleInstagramClick = () => {
+    // Abrir el enlace de Instagram en una nueva pestaña
+    window.open('https://www.instagram.com/fincaraizsolnaciente/', '_blank');
+
+    // Registrar el evento de clic en el ícono de Instagram en Firebase Analytics
+    const analytics = getAnalytics();
+    logEvent(analytics, 'instagram_icon_click');
+  };
+
+  const handleFacebookClick = () => {
+    // Abrir el enlace de Facebook en una nueva pestaña
+    window.open('https://www.facebook.com/solnaciente.fincaraiz.94', '_blank');
+
+    // Registrar el evento de clic en el ícono de Facebook en Firebase Analytics
+    const analytics = getAnalytics();
+    logEvent(analytics, 'facebook_icon_click');
+  };
+
+  return (
+  
     <Box as="footer" role="contentinfo" boxShadow="0px 2px 4px rgba(0, 0, 0, .2)" >
  <Stack
       spacing="40"
@@ -95,13 +117,21 @@ const Bar = () => (
           as="a"
           href="https://www.instagram.com/fincaraizsolnaciente/"
           aria-label="Instagram"
-         icon={<FaInstagram fontSize="1.25rem" />}
+          icon={<FaInstagram fontSize="1.25rem" />}
+          onClick={handleInstagramClick}
         />
-        <IconButton as="a" href="https://www.facebook.com/solnaciente.fincaraiz.94" aria-label="Facebook"  icon={<FaFacebook fontSize="1.25rem" />} />
+        <IconButton
+          as="a"
+          href="https://www.facebook.com/solnaciente.fincaraiz.94"
+          aria-label="Facebook"
+          icon={<FaFacebook fontSize="1.25rem" />}
+          onClick={handleFacebookClick}
+        />
       </ButtonGroup>
     </Stack>
     </Box>
-  )
+   );
+  };
 
 
 
