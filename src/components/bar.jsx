@@ -8,7 +8,7 @@ import {
   Image,
   Box
 } from '@chakra-ui/react';
-import { FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaInstagram } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { logEvent, getAnalytics } from 'firebase/analytics'; // Importar las funciones de Firebase Analytics
 
