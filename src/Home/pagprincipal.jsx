@@ -12,6 +12,8 @@ import Navbar from '../components/navbar';
 import Bar from '../components/bar';
 import Somos from '../components/quienessomos';
 import Elegirnos from '../components/porque elegirnos';
+import Servisios from '../components/servisios';
+import Equipo from '../components/equipo';
 
 const Home = () => {
   return (
@@ -44,10 +46,15 @@ const Home = () => {
             Explora nuestras propiedades disponibles y encuentra el lugar perfecto para ti.
           </Text>
         </Flex>
-      </Box>
-      <Somos />
+      </Box><Servisios />
+      
       <Casas />
       <Elegirnos />
+      <Equipo />
+      <Somos />
+      
+      
+
       <Bar />
     </Box>
 
